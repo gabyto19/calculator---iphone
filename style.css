@@ -1,0 +1,110 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: blanchedalmond;
+}
+
+.main {
+  margin: auto;
+  height: 600px;
+  width: 330px;
+  background: #1b1b1b;
+  position: relative;
+  top: 10%;
+  border-radius: 2em;
+}
+.maintwo {
+  margin: auto;
+  height: 580px;
+  width: 310px;
+  background: black;
+  position: relative;
+  top: 2%;
+  border-radius: 1.5em;
+}
+.cholka {
+  margin: auto;
+  width: 40%;
+  background-color: #1b1b1b;
+  height: 30px;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.monitor {
+  width: 100%;
+  height: 190px;
+  background-color: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.place {
+  height: 50%;
+  text-align: center;
+}
+.row {
+  justify-content: space-evenly;
+}
+
+.butt {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  border-style: solid;
+  margin: 7px 1.5px 0 1.5px;
+  background-color: #343434;
+  color: white;
+  border: none;
+  font-size: x-large;
+}
+
+.butt:active {
+  background-color: #737373;
+}
+
+.kenti {
+  background-color: orange;
+}
+.kenti:active {
+  background-color: #fbc78d;
+}
+.zero {
+  width: 43%;
+  border-radius: 30px;
+  text-align: left;
+  padding-left: 7.5%;
+}
+
+.inpt {
+  color: white;
+  background-color: transparent;
+  border: none;
+  width: 90%;
+  align-items: center;
+  height: 30%;
+  font-size: xx-large;
+  text-align: right;
+}
+.inpt:focus {
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.three {
+  background-color: #a5a5a5;
+  color: black;
+}
