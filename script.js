@@ -28,6 +28,13 @@ const app = Vue.createApp({
       saver: 0,
       savertwo: 0,
       symbol: "",
+      answer: 0,
+      equalless: true,
+      core: 0,
+      onOff: true,
+      one: 0,
+      two: 0,
+      counter: 0,
     };
   },
   computed: {},
@@ -57,35 +64,128 @@ const app = Vue.createApp({
       if (this.clickedNumber[0] == "0") {
         this.clickedNumber = "";
       }
-      if (idx > this.noIncludeNum.length - 1) {
-        this.clickedNumber += this.buttons[idx];
 
+      // ========================================================
+      if (!this.savertwo) {
         if (
           this.buttons[idx] == "÷" ||
           this.buttons[idx] == "+" ||
           this.buttons[idx] == "-" ||
-          this.buttons[idx] == "*"
+          this.buttons[idx] == "x"
         ) {
-          this.symbol = this.buttons[idx];
-          this.saver = parseInt(this.clickedNumber);
-          this.clickedNumber = this.saver;
-          this.switcher = false;
-          console.log(this.clickedNumber)
+          if (!this.counter) {
+            debugger;
+            if (this.buttons[idx] == "÷" && !this.symbol) {
+              this.symbol = "/";
+            } else if (this.buttons[idx] == "x" && !this.symbol) {
+              this.symbol = "*";
+            } else if (!this.symbol) {
+              this.symbol = this.buttons[idx];
+            }
+            this.saver = parseInt(this.clickedNumber);
+            this.switcher = false;
+            // debugger
+          }
+          // ========================================================
+
+          // debugger
+        }
+      }
+      if (
+        idx > this.noIncludeNum.length &&
+        idx != 7 &&
+        idx != 11 &&
+        idx != 15
+      ) {
+        this.clickedNumber += this.buttons[idx];
+        if (this.symbol && !this.switcher) {
+          if (!this.counter) {
+            this.clickedNumber == "";
+            this.counter++;
+          }
+          // ------------------
+          this.clickedNumber = this.buttons[idx];
+          this.switcher = true;
         }
 
-        if (this.symbol != "" && this.switcher == false) {
-          if (this.saver.toString().length < this.clickedNumber.length) {
-            this.clickedNumber = this.buttons[idx];
-            this.switcher = true;
+        if (this.saver && this.symbol) {
+          this.savertwo = parseInt(this.clickedNumber);
+          if (this.buttons[idx] == "=") {
+            if (this.symbol == "÷") {
+              this.symbol = "/";
+            }
+            if (this.symbol == "x") {
+              this.symbol = "*";
+            }
+
+            console.log(
+              "saver:" +
+                this.saver +
+                "and" +
+                "savertwo:" +
+                this.savertwo +
+                "symbol:" +
+                this.symbol
+            );
+            this.answer = eval("this.saver" + this.symbol + "this.savertwo");
+            this.clickedNumber = this.answer;
+            this.saver = 0;
+            this.savertwo = 0;
+            this.counter = 0;
           }
         }
-
       }
+      if (this.buttons[idx] && this.answer) {
+        this.two++;
+        if (this.two >= 2) {
+          this.clickedNumber = this.buttons[idx];
+          this.switcher = true;
+          this.saver = 0;
+          this.savertwo = 0;
+          this.symbol = "";
+          this.answer = 0;
+          this.equalless = true;
+          this.core = 0;
+          this.onOff = true;
+          this.one = 0;
+        }
+      }
+
+      // ----------------------------------------------------
+      if (this.saver && this.symbol) {
+        this.one++;
+        if (this.one > 2) {
+          if (this.one == 2) {
+            this.clickedNumber = this.buttons[idx];
+          }
+          this.savertwo = parseInt(this.clickedNumber);
+        }
+        console.log(
+          "length:" + this.savertwo.toString().length,
+          " savertwo:" + this.savertwo,
+          " symbol:" + this.buttons[idx]
+        );
+        if (this.buttons[idx] == "÷" && this.savertwo) {
+          this.symbol = "/";
+          this.saver = eval("this.saver" + this.symbol + "this.savertwo");
+          this.clickedNumber = this.saver;
+          this.symbol = this.buttons[idx];
+          this.savertwo = "";
+          this.switcher = !this.switcher;
+          this.counter = 0;
+        }
+        console.log(
+          "saver:" + this.saver + "and" + "savertwo:" + this.savertwo
+        );
+      }
+      // -----_-__-_---_-----_--_--------------____--_--_-------_-
+
+      this.see();
     },
 
     clValue(id) {
       if (this.buttons[id] == "AC") {
-        this.clickedNumber = "0";
+        this.clearEveryThing();
       } else if (this.buttons[id] == "%") {
         this.saver = parseInt(this.clickedNumber);
         this.saver = this.saver / 100;
@@ -94,6 +194,45 @@ const app = Vue.createApp({
         this.saver = parseInt(this.clickedNumber);
         this.saver = this.saver - this.saver * 2;
         this.clickedNumber = this.saver;
+      }
+    },
+
+    clearEveryThing() {
+      this.clickedNumber = "0";
+      this.switcher = true;
+      this.saver = 0;
+      this.savertwo = 0;
+      this.symbol = "";
+      this.answer = 0;
+      this.equalless = true;
+      this.core = 0;
+      this.onOff = true;
+      this.one = 0;
+      this.two = 0;
+      this.counter = 0;
+    },
+
+    see() {
+      console.log(
+        "clickednumber: " + this.clickedNumber,
+        "  switcher: " + this.switcher,
+        "  saver: " + this.saver,
+        "  savertwo: " + this.savertwo,
+        "  symbol: " + this.symbol,
+        "  answer: " + this.answer,
+        "  equalless: " + this.equalless,
+        "  core: " + this.core,
+        "  onOff: " + this.onOff,
+        "  one: " + this.one,
+        "  two: " + this.two,
+        "  counter: " + this.counter
+      );
+      if (
+        this.clickedNumber.toString().length == 1 &&
+        this.clickedNumber != "0" &&
+        !this.savertwo
+      ) {
+        this.two = 0;
       }
     },
   },
