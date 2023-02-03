@@ -74,7 +74,6 @@ const app = Vue.createApp({
           this.buttons[idx] == "x"
         ) {
           if (!this.counter) {
-            debugger;
             if (this.buttons[idx] == "÷" && !this.symbol) {
               this.symbol = "/";
             } else if (this.buttons[idx] == "x" && !this.symbol) {
@@ -97,7 +96,9 @@ const app = Vue.createApp({
         idx != 11 &&
         idx != 15
       ) {
-        this.clickedNumber += this.buttons[idx];
+        if(this.buttons[idx] != "="){
+          this.clickedNumber += this.buttons[idx];
+        }
         if (this.symbol && !this.switcher) {
           if (!this.counter) {
             this.clickedNumber == "";
@@ -110,7 +111,7 @@ const app = Vue.createApp({
 
         if (this.saver && this.symbol) {
           this.savertwo = parseInt(this.clickedNumber);
-          if (this.buttons[idx] == "=") {
+          if (this.buttons[idx] == "=" && this.savertwo) {
             if (this.symbol == "÷") {
               this.symbol = "/";
             }
@@ -118,17 +119,10 @@ const app = Vue.createApp({
               this.symbol = "*";
             }
 
-            console.log(
-              "saver:" +
-                this.saver +
-                "and" +
-                "savertwo:" +
-                this.savertwo +
-                "symbol:" +
-                this.symbol
-            );
             this.answer = eval("this.saver" + this.symbol + "this.savertwo");
+        if(this.answer != "="){
             this.clickedNumber = this.answer;
+        }
             this.saver = 0;
             this.savertwo = 0;
             this.counter = 0;
@@ -138,7 +132,9 @@ const app = Vue.createApp({
       if (this.buttons[idx] && this.answer) {
         this.two++;
         if (this.two >= 2) {
-          this.clickedNumber = this.buttons[idx];
+          if(this.buttons[idx] != "="){
+            this.clickedNumber += this.buttons[idx];
+          }
           this.switcher = true;
           this.saver = 0;
           this.savertwo = 0;
@@ -151,7 +147,6 @@ const app = Vue.createApp({
         }
       }
 
-      // ----------------------------------------------------
       if (this.saver && this.symbol) {
         this.one++;
         if (this.one > 2) {
@@ -160,11 +155,6 @@ const app = Vue.createApp({
           }
           this.savertwo = parseInt(this.clickedNumber);
         }
-        console.log(
-          "length:" + this.savertwo.toString().length,
-          " savertwo:" + this.savertwo,
-          " symbol:" + this.buttons[idx]
-        );
         if (this.buttons[idx] == "÷" && this.savertwo) {
           this.symbol = "/";
           this.saver = eval("this.saver" + this.symbol + "this.savertwo");
@@ -174,12 +164,17 @@ const app = Vue.createApp({
           this.switcher = !this.switcher;
           this.counter = 0;
         }
-        console.log(
-          "saver:" + this.saver + "and" + "savertwo:" + this.savertwo
-        );
+        // else if (this.buttons[idx] == "x" && this.savertwo) {
+        //   this.symbol = "*";
+        //   this.saver = eval("this.saver" + this.symbol + "this.savertwo");
+        //   this.clickedNumber = this.saver;
+        //   this.symbol = this.buttons[idx];
+        //   this.savertwo = "";
+        //   this.switcher = !this.switcher;
+        //   this.counter = 0;
+        // }
+        
       }
-      // -----_-__-_---_-----_--_--------------____--_--_-------_-
-
       this.see();
     },
 
@@ -235,6 +230,7 @@ const app = Vue.createApp({
         this.two = 0;
       }
     },
+
   },
 });
 
