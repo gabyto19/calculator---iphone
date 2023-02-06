@@ -65,7 +65,6 @@ const app = Vue.createApp({
         this.clickedNumber = "";
       }
 
-      // ========================================================
       if (!this.savertwo) {
         if (
           this.buttons[idx] == "÷" ||
@@ -85,9 +84,7 @@ const app = Vue.createApp({
             this.switcher = false;
             // debugger
           }
-          // ========================================================
 
-          // debugger
         }
       }
       if (
@@ -174,15 +171,33 @@ const app = Vue.createApp({
           this.switcher = !this.switcher;
           this.counter = 0;
         }
-        // else if (this.buttons[idx] == "x" && this.savertwo) {
-        //   this.saver = eval("this.saver" + this.symbol + "this.savertwo");
-        //   this.symbol = "*";
-        //   this.clickedNumber = this.saver;
-        //   this.symbol = this.buttons[idx];
-        //   this.savertwo = "";
-        //   this.switcher = !this.switcher;
-        //   this.counter = 0;
-        // }
+        else if (this.buttons[idx] == "x" && this.savertwo) {
+          this.saver = eval("this.saver" + this.symbol + "this.savertwo");
+          this.symbol = "*";
+          this.clickedNumber = this.saver;
+          this.symbol = this.buttons[idx];
+          this.savertwo = "";
+          this.switcher = !this.switcher;
+          this.counter = 0;
+        }
+        else if (this.buttons[idx] == "-" && this.savertwo) {
+          this.saver = eval("this.saver" + this.symbol + "this.savertwo");
+          this.symbol = "-";
+          this.clickedNumber = this.saver;
+          this.symbol = this.buttons[idx];
+          this.savertwo = "";
+          this.switcher = !this.switcher;
+          this.counter = 0;
+        }
+        else if (this.buttons[idx] == "+" && this.savertwo) {
+          this.saver = eval("this.saver" + this.symbol + "this.savertwo");
+          this.symbol = "+";
+          this.clickedNumber = this.saver;
+          this.symbol = this.buttons[idx];
+          this.savertwo = "";
+          this.switcher = !this.switcher;
+          this.counter = 0;
+        }
       }
       this.see();
     },
