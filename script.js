@@ -96,7 +96,7 @@ const app = Vue.createApp({
         idx != 11 &&
         idx != 15
       ) {
-        if(this.buttons[idx] != "="){
+        if (this.buttons[idx] != "=") {
           this.clickedNumber += this.buttons[idx];
         }
         if (this.symbol && !this.switcher) {
@@ -118,22 +118,32 @@ const app = Vue.createApp({
             if (this.symbol == "x") {
               this.symbol = "*";
             }
-
+            console.log(
+              "saver: " +
+                this.saver +
+                "  savertwo: " +
+                this.savertwo +
+                "  symbol: " +
+                this.symbol
+            );
             this.answer = eval("this.saver" + this.symbol + "this.savertwo");
-        if(this.answer != "="){
-            this.clickedNumber = this.answer;
-        }
+            if (this.answer != "=") {
+              console.log("answer" + this.answer);
+              this.clickedNumber = this.answer;
+            }
             this.saver = 0;
             this.savertwo = 0;
             this.counter = 0;
           }
         }
       }
+
       if (this.buttons[idx] && this.answer) {
         this.two++;
         if (this.two >= 2) {
-          if(this.buttons[idx] != "="){
-            this.clickedNumber += this.buttons[idx];
+          if (this.buttons[idx] != "=") {
+            this.clickedNumber = this.buttons[idx];
+            debugger
           }
           this.switcher = true;
           this.saver = 0;
@@ -165,15 +175,14 @@ const app = Vue.createApp({
           this.counter = 0;
         }
         // else if (this.buttons[idx] == "x" && this.savertwo) {
-        //   this.symbol = "*";
         //   this.saver = eval("this.saver" + this.symbol + "this.savertwo");
+        //   this.symbol = "*";
         //   this.clickedNumber = this.saver;
         //   this.symbol = this.buttons[idx];
         //   this.savertwo = "";
         //   this.switcher = !this.switcher;
         //   this.counter = 0;
         // }
-        
       }
       this.see();
     },
@@ -230,7 +239,6 @@ const app = Vue.createApp({
         this.two = 0;
       }
     },
-
   },
 });
 
